@@ -1,13 +1,11 @@
 <template>
-  <div class="stats-grid">
-    <div class="stat-card">
-      <div :class="[color, iconClass]">
-        <i :class="icon"></i>
-      </div>
-      <div class="stat-content">
-        <div class="stat-number">{{ number }}</div>
-        <div class="stat-label">{{ label }}</div>
-      </div>
+  <div class="stat-card">
+    <div :class="[bgColor, color, iconClass]">
+      <i :class="icon"></i>
+    </div>
+    <div class="stat-content">
+      <div class="stat-number">{{ number }}</div>
+      <div class="stat-label">{{ label }}</div>
     </div>
   </div>
 </template>
@@ -19,6 +17,7 @@ export default {
     icon: { type: String, required: true },
     number: { type: String, required: true },
     label: { type: String, required: true },
+    bgColor: { type: String, required: true },
     color: { type: String, required: true },
   },
   computed: {

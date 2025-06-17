@@ -1,5 +1,5 @@
 <template>
-  <div class="header">
+  <div class="header rounded-tl-xl rounded-tr-xl">
     <div class="logo">
       <div class="logo-icon">
         <i class="fas fa-mountain"></i>
@@ -23,6 +23,14 @@ export default {
 </script>
 
 <style scoped>
+.header {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
+  color: white;
+  padding: 30px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .logo {
   display: flex;
   align-items: center;

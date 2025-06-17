@@ -1,14 +1,11 @@
 <template>
-  <nav>
-    <div class="app-container">
-      <main-header />
-      <div class="main-content">
-        <NavSidebar />
-        <router-view />
-      </div>
-      <router-view />
+  <div class="app-container grid">
+    <main-header />
+    <div class="main-content grid grid-cols-12">
+      <NavSidebar class="col-span-2" />
+      <router-view class="col-span-10 p-12" />
     </div>
-  </nav>
+  </div>
 </template>
 
 <script>
@@ -51,11 +48,11 @@ export default {
 .cms-container {
   max-width: 1200px;
   margin: 0 auto;
-  background: white;
   border-radius: 20px;
   box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
+
 .cms-container {
   max-width: 1200px;
   margin: 0 auto;
