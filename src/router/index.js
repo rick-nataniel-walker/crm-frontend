@@ -7,6 +7,12 @@ const routes = [
     name: "home",
     component: DashboardView,
   },
+  {
+    path: "/articles",
+    name: "articles",
+    component: () =>
+      import(/*webpackChunkName= "articles"*/ "@/views/ArticlesView"),
+  },
 ];
 
 const router = createRouter({
