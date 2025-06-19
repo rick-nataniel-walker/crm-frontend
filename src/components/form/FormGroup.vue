@@ -5,11 +5,14 @@
       :is="inputType"
       :value="modelValue"
       v-bind="$attrs"
+      :type="type"
       @input="handleInput"
       @change="handleChange"
       class="form-control"
-    />
-    <slot></slot>
+    >
+      <slot></slot>
+    </component>
+    <slot name="misc"> </slot>
   </div>
 </template>
 
@@ -24,6 +27,10 @@ export default {
       default: "input",
       validator: (value) =>
         ["input", "textarea", "select", "file"].includes(value),
+    },
+    type: {
+      type: String,
+      required: false,
     },
     row: Boolean,
   },

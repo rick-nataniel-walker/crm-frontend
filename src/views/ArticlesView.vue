@@ -51,8 +51,12 @@
         <form-group
           label="Imagem de Destaque"
           v-model="article.featuredImage"
-          inputType="file"
+          inputType="input"
+          type="file"
         />
+      </div>
+      <div class="grid md:grid-cols-2 gap-8">
+        <tag-selector :tags="tags" v-model="selectedTags" />
       </div>
     </div>
 
@@ -63,8 +67,9 @@
 <script>
 import ActionBtn from "@/components/shared/ActionBtn";
 import ArticleTable from "@/components/ArticleTable";
-import SectionTitle from "@/components/shared/SectionTitle";
 import FormGroup from "@/components/form/FormGroup";
+import SectionTitle from "@/components/shared/SectionTitle";
+import TagSelector from "@/components/form/TagSelector";
 import { articles, article, categories, tags } from "@/datasource";
 
 export default {
@@ -74,6 +79,7 @@ export default {
     ArticleTable,
     FormGroup,
     SectionTitle,
+    TagSelector,
   },
   data() {
     return {
@@ -81,8 +87,10 @@ export default {
       article,
       categories,
       tags,
+      selectedTags: [],
     };
   },
+
   //TODO: when calling API use the config below to deal with edit and save
   /* computed: {
     formTitle() {
