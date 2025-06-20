@@ -75,9 +75,9 @@ import ArticleTable from "@/components/ArticleTable";
 import FormGroup from "@/components/form/FormGroup";
 import SectionTitle from "@/components/shared/SectionTitle";
 import TagSelector from "@/components/form/TagSelector";
-import { articles, article, categories, tags } from "@/datasource";
-import { CREATE_ARTICLE } from "@/store";
-import { mapActions } from "vuex";
+import { article, categories, tags } from "@/datasource";
+import { CREATE_ARTICLE, FETCH_ARTICLES } from "@/store";
+import { mapActions, mapState } from "vuex";
 
 export default {
   name: "ArticlesView",
@@ -91,7 +91,6 @@ export default {
   data() {
     return {
       articleId: null,
-      articles,
       article,
       categories,
       tags,
@@ -100,15 +99,17 @@ export default {
   },
 
   computed: {
+    ...mapState(["articles"]),
     formTitle() {
       return this.articleId ? "Editar Artigo" : "Criar Novo Artigo";
     },
   },
   methods: {
-    ...mapActions(CREATE_ARTICLE),
-    saveArticle() {
+    ...mapActions([CREATE_ARTICLE, FETCH_ARTICLES]),
+    async saveArticle() {
       //const action = this.articleId ? "updateArticle" : "createArticle";
       this.CREATE_ARTICLE(article);
+      await this.FETCH_ARTICLES();
     },
     loadArticle() {
       if (this.articleId) {
@@ -117,6 +118,9 @@ export default {
         });
       }
     },
+  },
+  async beforeMount() {
+    await this.FETCH_ARTICLES();
   },
   created() {
     this.loadArticle();

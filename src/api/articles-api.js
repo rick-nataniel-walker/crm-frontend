@@ -1,14 +1,16 @@
-import { storeFormData } from "@/api/api-requests";
+import { getData, storeFormData } from "@/api/api-requests";
 
-const baseUrl = "api/articles";
+const baseUrl = "/api/posts";
 
 export const createArticle = (form) => {
   storeFormData(baseUrl, form)
     .then((result) => {
-      console.log(result);
       return result.data;
     })
     .catch((err) => {
       console.log(err);
     });
+};
+export const fetchArticles = async () => {
+  return await getData(baseUrl);
 };

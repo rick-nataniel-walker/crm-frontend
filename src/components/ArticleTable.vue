@@ -19,7 +19,7 @@
           <td>{{ article.author }}</td>
           <td>{{ article.category }}</td>
           <td>{{ article.tags }}</td>
-          <td>{{ article.date }}</td>
+          <td>{{ article.publishedAt }}</td>
           <td><word-badge :word="article.status" /></td>
           <td>
             <button class="action-btn" @click="editArticle(article.id)">
