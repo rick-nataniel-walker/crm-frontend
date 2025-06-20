@@ -1,3 +1,5 @@
+import { formatDateTime } from "@/helpers/DateHelper";
+
 export const articles = [
   {
     title: "Title Span",
@@ -57,10 +59,11 @@ export const article = {
   slug: "",
   excerpt: "",
   content: "",
-  category: "",
-  featuredImage: null,
+  author_id: 1,
+  category_id: 1,
+  featured_image: null,
   status: "draft",
-  publishDate: "",
+  published_at: formatDateTime(new Date()),
   tags: [],
 };
 

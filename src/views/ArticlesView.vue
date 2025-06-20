@@ -50,17 +50,22 @@
 
         <form-group
           label="Imagem de Destaque"
-          v-model="article.featuredImage"
+          v-model="article.featured_image"
           inputType="input"
           type="file"
         />
       </div>
       <div class="grid md:grid-cols-2 gap-8">
-        <tag-selector :tags="tags" v-model="selectedTags" />
+        <tag-selector :tags="tags" v-model="article.selectedTags" />
       </div>
     </div>
 
-    <action-btn icon="fas fa-save" text="Salvar o Artigo" class="mt-12" />
+    <action-btn
+      icon="fas fa-save"
+      text="Salvar o Artigo"
+      class="mt-12"
+      @click="saveArticle"
+    />
   </div>
 </template>
 
@@ -71,6 +76,8 @@ import FormGroup from "@/components/form/FormGroup";
 import SectionTitle from "@/components/shared/SectionTitle";
 import TagSelector from "@/components/form/TagSelector";
 import { articles, article, categories, tags } from "@/datasource";
+import { CREATE_ARTICLE } from "@/store";
+import { mapActions } from "vuex";
 
 export default {
   name: "ArticlesView",
@@ -83,6 +90,7 @@ export default {
   },
   data() {
     return {
+      articleId: null,
       articles,
       article,
       categories,
@@ -91,23 +99,16 @@ export default {
     };
   },
 
-  //TODO: when calling API use the config below to deal with edit and save
-  /* computed: {
+  computed: {
     formTitle() {
       return this.articleId ? "Editar Artigo" : "Criar Novo Artigo";
     },
   },
-   methods: {
+  methods: {
+    ...mapActions(CREATE_ARTICLE),
     saveArticle() {
-      const action = this.articleId ? "updateArticle" : "createArticle";
-      this.$store
-        .dispatch(action, this.article)
-        .then(() => {
-          this.$router.push("/articles");
-        })
-        .catch((error) => {
-          console.error("Error saving article:", error);
-        });
+      //const action = this.articleId ? "updateArticle" : "createArticle";
+      this.CREATE_ARTICLE(article);
     },
     loadArticle() {
       if (this.articleId) {
@@ -119,7 +120,7 @@ export default {
   },
   created() {
     this.loadArticle();
-  },*/
+  },
 };
 </script>
 
