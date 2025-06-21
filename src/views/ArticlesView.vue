@@ -1,6 +1,5 @@
 <template>
   <div class="bg-white">
-    <article-table :articles="articles" />
     <div class="article-form-container mt-24">
       <section-title title="Criar Novo Artigo" />
       <div class="grid md:grid-cols-2 gap-8">
@@ -66,6 +65,7 @@
       class="mt-12"
       @click="saveArticle"
     />
+    <article-table :articles="articles" />
   </div>
 </template>
 
