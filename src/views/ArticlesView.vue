@@ -75,8 +75,8 @@ import ArticleTable from "@/components/ArticleTable";
 import FormGroup from "@/components/form/FormGroup";
 import SectionTitle from "@/components/shared/SectionTitle";
 import TagSelector from "@/components/form/TagSelector";
-import { article, categories, tags } from "@/datasource";
-import { CREATE_ARTICLE, FETCH_ARTICLES } from "@/store";
+import { article, tags } from "@/datasource";
+import { CREATE_ARTICLE, FETCH_ARTICLES, FETCH_CATEGORIES } from "@/store";
 import { mapActions, mapState } from "vuex";
 
 export default {
@@ -92,20 +92,19 @@ export default {
     return {
       articleId: null,
       article,
-      categories,
       tags,
       selectedTags: [],
     };
   },
 
   computed: {
-    ...mapState(["articles"]),
+    ...mapState(["articles", "categories"]),
     formTitle() {
       return this.articleId ? "Editar Artigo" : "Criar Novo Artigo";
     },
   },
   methods: {
-    ...mapActions([CREATE_ARTICLE, FETCH_ARTICLES]),
+    ...mapActions([CREATE_ARTICLE, FETCH_ARTICLES, FETCH_CATEGORIES]),
     async saveArticle() {
       //const action = this.articleId ? "updateArticle" : "createArticle";
       this.CREATE_ARTICLE(article);
@@ -121,6 +120,7 @@ export default {
   },
   async beforeMount() {
     await this.FETCH_ARTICLES();
+    await this.FETCH_CATEGORIES();
   },
   created() {
     this.loadArticle();

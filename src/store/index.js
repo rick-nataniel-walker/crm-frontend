@@ -1,12 +1,12 @@
 import { createStore } from "vuex";
 import { createArticle, fetchArticles } from "@/api/articles-api";
-import { fetchCategories } from "@/api/categories-api";
+import { createCategory, fetchCategories } from "@/api/categories-api";
 
 export const CREATE_ARTICLE = "CREATE_ARTICLE";
 export const FILL_ARTICLE = "FILL_ARTICLE";
 export const FILL_ARTICLES = "FILL_ARTICLES";
 export const FETCH_ARTICLES = "FETCH_ARTICLES";
-export const CRATE_CATEGORY = "CREATE_CATEGORY";
+export const CREATE_CATEGORY = "CREATE_CATEGORY";
 export const FETCH_CATEGORIES = "FETCH_CATEGORIES";
 export const FILL_CATEGORIES = "FILL_CATEGORIES";
 
@@ -29,16 +29,20 @@ export const mutations = {
 };
 
 export const actions = {
-  [CREATE_ARTICLE](context, form) {
-    createArticle(form);
+  [CREATE_ARTICLE](context, formData) {
+    createArticle(formData);
   },
   async [FETCH_ARTICLES](context) {
     let result = await fetchArticles();
     let payload = result.data.data;
     context.commit(FILL_ARTICLES, payload);
   },
+
+  [CREATE_CATEGORY](context, formData) {
+    createCategory(formData);
+  },
   async [FETCH_CATEGORIES](context) {
-    let result = fetchCategories();
+    let result = await fetchCategories();
     context.commit(FILL_CATEGORIES, result);
   },
 };

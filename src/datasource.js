@@ -68,7 +68,7 @@ export const article = {
   tags: [],
 };
 
-export const categories = {
+export const category = {
   name: "",
 };
 
