@@ -1,6 +1,6 @@
 <template>
   <div class="bg-white">
-    <div class="article-form-container mt-24">
+    <div class="article-form-container mt-8">
       <section-title title="Criar Novo Artigo" />
       <div class="grid md:grid-cols-2 gap-8">
         <form-group
@@ -35,7 +35,7 @@
       <div class="grid md:grid-cols-2 gap-8">
         <form-group
           label="Categoria"
-          v-model="article.category"
+          v-model="article.category_id"
           inputType="select"
         >
           <option

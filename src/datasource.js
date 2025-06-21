@@ -55,26 +55,24 @@ export const stats = [
 ];
 
 export const article = {
+  id: "",
   title: "",
   slug: "",
   excerpt: "",
   content: "",
   author_id: 1,
-  category_id: 1,
+  category_id: "",
   featured_image: null,
   status: "draft",
   published_at: formatDateTime(new Date()),
   tags: [],
 };
 
-export const categories = [
-  { id: 1, name: "Geologia Aplicada" },
-  { id: 2, name: "Gestão Ambiental" },
-  // More categories...
-];
+export const categories = {
+  name: "",
+};
 
 export const tags = [
   { id: 1, name: "geologia" },
   { id: 2, name: "mineração" },
-  // More tags...
 ];
