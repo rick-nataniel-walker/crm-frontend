@@ -1,4 +1,4 @@
-import { getData, storeFormData } from "@/api/api-requests";
+import { deleteData, getData, storeFormData } from "@/api/api-requests";
 
 const baseUrl = "/api/posts";
 
@@ -13,4 +13,8 @@ export const createArticle = (form) => {
 };
 export const fetchArticles = async () => {
   return await getData(baseUrl);
+};
+export const deleteArticle = async (id) => {
+  const deletedArticle = await deleteData(`${baseUrl}/${id}`);
+  return deletedArticle.data.data;
 };

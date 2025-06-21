@@ -62,7 +62,7 @@
     <action-btn
       icon="fas fa-save"
       text="Salvar o Artigo"
-      class="mt-12"
+      class="mt-8 mb-18"
       @click="saveArticle"
     />
     <article-table :articles="articles" />

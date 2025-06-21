@@ -38,6 +38,8 @@
 <script>
 import WordBadge from "@/components/shared/WordBadge";
 import SectionTitle from "@/components/shared/SectionTitle";
+import { mapActions } from "vuex";
+import { DELETE_ARTICLE } from "@/store";
 export default {
   name: "ArticleTable",
   components: {
@@ -51,13 +53,14 @@ export default {
     },
   },
   methods: {
+    ...mapActions([DELETE_ARTICLE]),
     editArticle(id) {
       this.$router.push(`/articles/edit/${id}`);
     },
     deleteArticle(id) {
       if (confirm("Tem certeza que deseja excluir este artigo?")) {
         // Dispatch action to delete article fas fa-save
-        this.$store.dispatch("deleteArticle", id);
+        this.DELETE_ARTICLE(id);
       }
     },
   },
