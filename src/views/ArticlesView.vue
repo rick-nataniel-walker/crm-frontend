@@ -76,7 +76,11 @@ import FormGroup from "@/components/form/FormGroup";
 import SectionTitle from "@/components/shared/SectionTitle";
 import TagSelector from "@/components/form/TagSelector";
 import { tags } from "@/datasource";
-import { CREATE_ARTICLE, FETCH_ARTICLES, FETCH_CATEGORIES } from "@/store";
+import {
+  CREATE_ARTICLE,
+  FETCH_ARTICLES,
+  FETCH_CATEGORIES,
+} from "@/store/constants";
 import { mapActions, mapState } from "vuex";
 
 export default {

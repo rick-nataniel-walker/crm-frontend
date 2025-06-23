@@ -19,7 +19,7 @@ import ActionBtn from "@/components/shared/ActionBtn";
 import FormGroup from "@/components/form/FormGroup";
 import { category } from "@/datasource";
 import { mapActions } from "vuex";
-import { CREATE_CATEGORY } from "@/store";
+import { CREATE_CATEGORY } from "@/store/constants";
 export default {
   name: "CategoryView",
   components: {

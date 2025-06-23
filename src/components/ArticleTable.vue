@@ -39,7 +39,7 @@
 import WordBadge from "@/components/shared/WordBadge";
 import SectionTitle from "@/components/shared/SectionTitle";
 import { mapActions, mapMutations, mapState } from "vuex";
-import { DELETE_ARTICLE, FILL_ARTICLE } from "@/store";
+import { DELETE_ARTICLE, FILL_ARTICLE } from "@/store/constants";
 export default {
   name: "ArticleTable",
   components: {
