@@ -1,7 +1,7 @@
 <template>
   <div class="bg-white">
-    <div class="article-form-container mt-8">
-      <section-title title="Criar Novo Artigo" />
+    <div class="article-form-container mt-8" id="form">
+      <section-title :title="formTitle" />
       <div class="grid md:grid-cols-2 gap-8">
         <form-group
           label="Título do Artigo"
@@ -35,7 +35,7 @@
       <div class="grid md:grid-cols-2 gap-8">
         <form-group
           label="Categoria"
-          v-model="article.category_id"
+          v-model="article.categoryId"
           inputType="select"
         >
           <option
@@ -49,7 +49,7 @@
 
         <form-group
           label="Imagem de Destaque"
-          v-model="article.featured_image"
+          v-model="article.postImg"
           inputType="input"
           type="file"
         />
@@ -65,7 +65,7 @@
       class="mt-8 mb-18"
       @click="saveArticle"
     />
-    <article-table :articles="articles" />
+    <article-table :articleList="articles" />
   </div>
 </template>
 
@@ -75,7 +75,7 @@ import ArticleTable from "@/components/ArticleTable";
 import FormGroup from "@/components/form/FormGroup";
 import SectionTitle from "@/components/shared/SectionTitle";
 import TagSelector from "@/components/form/TagSelector";
-import { article, tags } from "@/datasource";
+import { tags } from "@/datasource";
 import { CREATE_ARTICLE, FETCH_ARTICLES, FETCH_CATEGORIES } from "@/store";
 import { mapActions, mapState } from "vuex";
 
@@ -91,23 +91,22 @@ export default {
   data() {
     return {
       articleId: null,
-      article,
       tags,
       selectedTags: [],
     };
   },
 
   computed: {
-    ...mapState(["articles", "categories"]),
+    ...mapState(["article", "articles", "categories"]),
     formTitle() {
-      return this.articleId ? "Editar Artigo" : "Criar Novo Artigo";
+      return this.article.id ? "Editar Artigo" : "Criar Novo Artigo";
     },
   },
   methods: {
     ...mapActions([CREATE_ARTICLE, FETCH_ARTICLES, FETCH_CATEGORIES]),
     async saveArticle() {
       //const action = this.articleId ? "updateArticle" : "createArticle";
-      this.CREATE_ARTICLE(article);
+      this.CREATE_ARTICLE(this.article);
       await this.FETCH_ARTICLES();
     },
     loadArticle() {

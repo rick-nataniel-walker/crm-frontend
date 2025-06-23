@@ -1,6 +1,6 @@
 <template>
   <section-title title="Artigos" />
-  <div class="table-container">
+  <div class="bg-white rounded-xl shadow-md overflow-hidden">
     <table>
       <thead>
         <tr>
@@ -14,10 +14,10 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="article in articles" :key="article.id">
+        <tr v-for="article in articleList" :key="article.id">
           <td>{{ article.title }}</td>
           <td>{{ article.author }}</td>
-          <td>{{ article.category }}</td>
+          <td>{{ article.category.name }}</td>
           <td>{{ article.tags }}</td>
           <td>{{ article.publishedAt }}</td>
           <td><word-badge :word="article.status" /></td>
@@ -38,8 +38,8 @@
 <script>
 import WordBadge from "@/components/shared/WordBadge";
 import SectionTitle from "@/components/shared/SectionTitle";
-import { mapActions } from "vuex";
-import { DELETE_ARTICLE } from "@/store";
+import { mapActions, mapMutations, mapState } from "vuex";
+import { DELETE_ARTICLE, FILL_ARTICLE } from "@/store";
 export default {
   name: "ArticleTable",
   components: {
@@ -47,15 +47,33 @@ export default {
     SectionTitle,
   },
   props: {
-    articles: {
+    articleList: {
       type: Array,
       required: true,
     },
   },
+  computed: {
+    ...mapState(["articles"]),
+  },
   methods: {
+    ...mapMutations([FILL_ARTICLE]),
     ...mapActions([DELETE_ARTICLE]),
     editArticle(id) {
-      this.$router.push(`/articles/edit/${id}`);
+      this.articles.forEach((article) => {
+        if (article.id === id) {
+          this.FILL_ARTICLE(article);
+
+          this.$nextTick(() => {
+            const formElement = document.getElementById("form");
+            if (formElement) {
+              formElement.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+              });
+            }
+          });
+        }
+      });
     },
     deleteArticle(id) {
       if (confirm("Tem certeza que deseja excluir este artigo?")) {
@@ -68,13 +86,6 @@ export default {
 </script>
 
 <style scoped>
-.table-container {
-  background: white;
-  border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-  overflow: hidden;
-}
-
 table {
   width: 100%;
   border-collapse: collapse;
@@ -85,16 +96,14 @@ thead {
 }
 
 th {
-  padding: 15px 20px;
-  text-align: left;
-  color: var(--primary);
-  font-weight: 600;
-  border-bottom: 2px solid rgba(0, 0, 0, 0.05);
+  @apply py-4 px-8 font-black text-primary text-left border-b border-gray-200;
 }
 
 td {
-  padding: 15px 20px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  @apply py-4 px-8 border-b border-gray-100;
+}
+tbody tr {
+  @apply hover:bg-secondary-light;
 }
 
 tr:last-child td {

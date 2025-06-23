@@ -5,18 +5,33 @@ import {
   fetchArticles,
 } from "@/api/articles-api";
 import { createCategory, fetchCategories } from "@/api/categories-api";
+import { formatDateTime } from "@/helpers/DateHelper";
 
 export const CREATE_ARTICLE = "CREATE_ARTICLE";
 export const FILL_ARTICLE = "FILL_ARTICLE";
 export const FILL_ARTICLES = "FILL_ARTICLES";
 export const FETCH_ARTICLES = "FETCH_ARTICLES";
 export const DELETE_ARTICLE = "DELETE_ARTICLE";
+export const RESET_ARTICLE = "RESET_ARTICLE";
 
 export const CREATE_CATEGORY = "CREATE_CATEGORY";
 export const FETCH_CATEGORIES = "FETCH_CATEGORIES";
 export const FILL_CATEGORIES = "FILL_CATEGORIES";
 
 export const state = {
+  article: {
+    id: "",
+    title: "",
+    slug: "",
+    excerpt: "",
+    content: "",
+    authorId: 1,
+    categoryId: "",
+    postImg: null,
+    status: "draft",
+    publishedAt: formatDateTime(new Date()),
+    tags: [],
+  },
   articles: [],
   categories: [],
 };
@@ -24,7 +39,23 @@ export const getters = {};
 
 export const mutations = {
   [FILL_ARTICLE](state, article) {
-    state.articles.push(article);
+    state.article = { ...article };
+    state.article.categoryId = article.category.id;
+  },
+  [RESET_ARTICLE](state) {
+    state.article = {
+      id: "",
+      title: "",
+      slug: "",
+      excerpt: "",
+      content: "",
+      authorId: 1,
+      categoryId: "",
+      postImg: null,
+      status: "draft",
+      publishedAt: formatDateTime(new Date()),
+      tags: [],
+    };
   },
   [FILL_ARTICLES](state, articles) {
     state.articles = articles;
@@ -37,6 +68,7 @@ export const mutations = {
 export const actions = {
   [CREATE_ARTICLE](context, formData) {
     createArticle(formData);
+    context.commit(RESET_ARTICLE);
     context.dispatch(FETCH_ARTICLES);
   },
   async [FETCH_ARTICLES](context) {

@@ -14,7 +14,7 @@
       />
     </div>
 
-    <article-table :articles="articles" />
+    <article-table :articleList="articles" />
   </div>
 </template>
 
