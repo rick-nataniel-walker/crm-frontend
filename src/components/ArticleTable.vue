@@ -18,7 +18,13 @@
           <td>{{ article.title }}</td>
           <td>{{ article.author.name }}</td>
           <td>{{ article.category.name }}</td>
-          <td>{{ article.tags }}</td>
+          <td>
+            {{
+              article.tags.length === 0
+                ? ""
+                : article.tags.map((tag) => tag.name).join(", ")
+            }}
+          </td>
           <td>{{ article.publishedAt }}</td>
           <td><word-badge :word="article.status" /></td>
           <td>

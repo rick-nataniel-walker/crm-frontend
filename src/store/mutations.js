@@ -17,6 +17,7 @@ export const mutations = {
     state.article.categoryId = article.category.id;
     state.article.authorId = article.author.id;
     state.article.postImg = "";
+    state.articles.tags = article.tags.map((tag) => tag.id);
   },
   [RESET_ARTICLE](state) {
     state.article = {
@@ -34,7 +35,20 @@ export const mutations = {
     };
   },
   [FILL_ARTICLES](state, articles) {
-    state.articles = articles;
+    state.articles = articles.map((article) => {
+      return {
+        ...article,
+        tags: article.tags
+          ? article.tags.map((tag) => ({
+              id: tag.id,
+              name: tag.name,
+            }))
+          : {
+              id: "",
+              name: "",
+            },
+      };
+    });
   },
 
   [FILL_CATEGORY](state, category) {
