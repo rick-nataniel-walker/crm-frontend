@@ -19,7 +19,7 @@
         <th>{{ categoryTableHeader.action }}</th>
       </template>
       <template #body>
-        <tr v-for="category in categories" :key="category.id">
+        <tr v-for="category in paginationSetup.items" :key="category.id">
           <td>{{ category.id }}</td>
           <td>{{ category.name }}</td>
           <td>
@@ -33,6 +33,12 @@
         </tr>
       </template>
     </main-table>
+    <table-pagination
+      v-if="paginationSetup.totalItems > 0"
+      :pagination="paginatioControls"
+      @page-changed="handlePageChange"
+      @items-per-page-changed="handleItemsPerPageChange"
+    />
   </div>
 </template>
 
@@ -41,6 +47,8 @@ import ActionBtn from "@/components/shared/ActionBtn";
 import FormGroup from "@/components/form/FormGroup";
 import MainTable from "@/components/tables/MainTable";
 import SectionTitle from "@/components/shared/SectionTitle";
+import TablePagination from "@/components/tables/TablePagination";
+import { paginate, getPaginationControls } from "@/helpers/Paginator";
 import { categoryTableHeader } from "@/datasource";
 import { mapActions, mapMutations, mapState } from "vuex";
 import {
@@ -57,14 +65,28 @@ export default {
     FormGroup,
     MainTable,
     SectionTitle,
+    TablePagination,
   },
   data() {
-    return { categoryTableHeader };
+    return {
+      currentPage: 1,
+      itemsPerPage: 5,
+      categoryTableHeader,
+    };
   },
   computed: {
     ...mapState(["categories", "category"]),
     formTitle() {
       return this.category.id ? "Actualizar categoria" : "Criar Nova Categoria";
+    },
+    paginationSetup() {
+      return paginate(this.categories, {
+        currentPage: this.currentPage,
+        itemsPerPage: this.itemsPerPage,
+      });
+    },
+    paginatioControls() {
+      return getPaginationControls(this.paginationSetup);
     },
   },
   methods: {
@@ -75,6 +97,13 @@ export default {
       FETCH_CATEGORIES,
       UPDATE_CATEGORY,
     ]),
+    handlePageChange(page) {
+      this.currentPage = page;
+    },
+    handleItemsPerPageChange(itemsPerPage) {
+      this.itemsPerPage = itemsPerPage;
+    },
+
     async saveCategory() {
       this.category.id
         ? this.UPDATE_CATEGORY(this.category)
@@ -104,6 +133,11 @@ export default {
   },
   beforeMount() {
     this.FETCH_CATEGORIES();
+  },
+  watch: {
+    categories() {
+      this.currentPage = 1;
+    },
   },
 };
 </script>
