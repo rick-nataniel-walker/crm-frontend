@@ -55,7 +55,7 @@
         />
       </div>
       <div class="grid md:grid-cols-2 gap-8">
-        <tag-selector :tags="tags" v-model="article.selectedTags" />
+        <tag-selector :tags="tags" v-model="article.tags" />
       </div>
     </div>
 
@@ -75,11 +75,11 @@ import ArticleTable from "@/components/ArticleTable";
 import FormGroup from "@/components/form/FormGroup";
 import SectionTitle from "@/components/shared/SectionTitle";
 import TagSelector from "@/components/form/TagSelector";
-import { tags } from "@/datasource";
 import {
   CREATE_ARTICLE,
   FETCH_ARTICLES,
   FETCH_CATEGORIES,
+  FETCH_TAGS,
   UPDATE_ARTICLE,
 } from "@/store/constants";
 import { mapActions, mapState } from "vuex";
@@ -96,13 +96,12 @@ export default {
   data() {
     return {
       articleId: null,
-      tags,
       selectedTags: [],
     };
   },
 
   computed: {
-    ...mapState(["article", "articles", "categories"]),
+    ...mapState(["article", "articles", "categories", "tags"]),
     formTitle() {
       return this.article.id ? "Editar Artigo" : "Criar Novo Artigo";
     },
@@ -112,6 +111,7 @@ export default {
       CREATE_ARTICLE,
       FETCH_ARTICLES,
       FETCH_CATEGORIES,
+      FETCH_TAGS,
       UPDATE_ARTICLE,
     ]),
     async saveArticle() {
@@ -130,6 +130,7 @@ export default {
   async beforeMount() {
     await this.FETCH_ARTICLES();
     await this.FETCH_CATEGORIES();
+    await this.FETCH_TAGS();
   },
   created() {
     this.loadArticle();
