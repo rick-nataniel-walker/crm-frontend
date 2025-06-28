@@ -13,3 +13,11 @@ export const FILL_CATEGORY = "FILL_CATEGORY";
 export const RESET_CATEGORY = "RESET_CATEGORY";
 export const UPDATE_CATEGORY = "UPDATE_CATEGORY";
 export const DELETE_CATEGORY = "DELETE_CATEGORY";
+
+export const CREATE_TAG = "CREATE_TAG";
+export const FETCH_TAGS = "FETCH_TAGS";
+export const FILL_TAGS = "FILL_TAGS";
+export const FILL_TAG = "FILL_TAG";
+export const RESET_TAG = "RESET_TAG";
+export const UPDATE_TAG = "UPDATE_TAG";
+export const DELETE_TAG = "DELETE_TAG";

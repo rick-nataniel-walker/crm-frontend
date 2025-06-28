@@ -19,4 +19,8 @@ export const state = {
   category: {
     name: "",
   },
+  tags: [],
+  tag: {
+    name: "",
+  },
 };

@@ -4,8 +4,11 @@ import {
   FILL_ARTICLES,
   FILL_CATEGORIES,
   FILL_CATEGORY,
+  FILL_TAG,
+  FILL_TAGS,
   RESET_ARTICLE,
   RESET_CATEGORY,
+  RESET_TAG,
 } from "@/store/constants";
 
 export const mutations = {
@@ -42,5 +45,15 @@ export const mutations = {
   },
   [RESET_CATEGORY](state) {
     state.category = {};
+  },
+
+  [FILL_TAG](state, tag) {
+    state.tag = tag;
+  },
+  [FILL_TAGS](state, tags) {
+    state.tags = tags;
+  },
+  [RESET_TAG](state) {
+    state.tag = {};
   },
 };

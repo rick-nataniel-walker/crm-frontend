@@ -19,6 +19,11 @@ const routes = [
     component: () =>
       import(/*webpackChunkName= "articles"*/ "@/views/CategoryView"),
   },
+  {
+    path: "/tags",
+    name: "tags",
+    component: () => import(/*webpackChunkName= "articles"*/ "@/views/TagView"),
+  },
 ];
 
 const router = createRouter({

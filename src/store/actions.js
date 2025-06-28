@@ -13,17 +13,24 @@ import {
 import {
   CREATE_ARTICLE,
   CREATE_CATEGORY,
+  CREATE_TAG,
   DELETE_ARTICLE,
   DELETE_CATEGORY,
+  DELETE_TAG,
   FETCH_ARTICLES,
   FETCH_CATEGORIES,
+  FETCH_TAGS,
   FILL_ARTICLES,
   FILL_CATEGORIES,
+  FILL_TAGS,
   RESET_ARTICLE,
   RESET_CATEGORY,
+  RESET_TAG,
   UPDATE_ARTICLE,
   UPDATE_CATEGORY,
+  UPDATE_TAG,
 } from "@/store/constants";
+import { createTag, deleteTag, fetchTags, updateTag } from "@/api/tags-api";
 
 export const actions = {
   async [CREATE_ARTICLE](context, formData) {
@@ -68,5 +75,26 @@ export const actions = {
   async [FETCH_CATEGORIES](context) {
     let result = await fetchCategories();
     if (result !== null) context.commit(FILL_CATEGORIES, result);
+  },
+
+  async [CREATE_TAG](context, formData) {
+    let payload = await createTag(formData);
+    if (payload !== null) {
+      await context.dispatch(FETCH_TAGS);
+      context.commit(RESET_TAG);
+    }
+  },
+  async [UPDATE_TAG](context, formData) {
+    await updateTag(formData);
+    await context.dispatch(FETCH_TAGS);
+    context.commit(RESET_TAG);
+  },
+  async [DELETE_TAG](context, id) {
+    await deleteTag(id);
+    await context.dispatch(FETCH_TAGS);
+  },
+  async [FETCH_TAGS](context) {
+    let payload = await fetchTags();
+    if (payload !== null) context.commit(FILL_TAGS, payload);
   },
 };
