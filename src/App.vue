@@ -61,4 +61,28 @@ export default {
   box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
+th {
+  @apply py-4 px-8 font-black text-primary text-left border-b border-gray-200;
+}
+
+td {
+  @apply py-4 px-8 border-b border-gray-100;
+}
+tbody tr {
+  @apply hover:bg-secondary-light;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+.action-btn {
+  @apply px-4 py-2 rounded-lg border-0 bg-light text-primary
+  font-medium cursor-pointer transition-all duration-300 ease-in-out
+  inline-flex items-center gap-4 m-1;
+}
+
+.action-btn:hover {
+  @apply bg-secondary text-white;
+}
 </style>

@@ -22,7 +22,8 @@
 import StatsCard from "@/components/shared/StatsCard";
 import ArticleTable from "@/components/ArticleTable";
 import SectionTitle from "@/components/shared/SectionTitle";
-import { articles, stats } from "@/datasource";
+import { stats } from "@/datasource";
+import { mapState } from "vuex";
 
 export default {
   name: "DashboardView",
@@ -33,9 +34,11 @@ export default {
   },
   data() {
     return {
-      articles,
       stats,
     };
+  },
+  computed: {
+    ...mapState(["articles"]),
   },
 };
 </script>

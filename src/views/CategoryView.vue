@@ -142,19 +142,4 @@ export default {
 };
 </script>
 
-<style scoped>
-th {
-  @apply py-4 px-8 font-black text-primary text-left border-b border-gray-200;
-}
-
-td {
-  @apply py-4 px-8 border-b border-gray-100;
-}
-tbody tr {
-  @apply hover:bg-secondary-light;
-}
-
-tr:last-child td {
-  border-bottom: none;
-}
-</style>
+<style scoped></style>
