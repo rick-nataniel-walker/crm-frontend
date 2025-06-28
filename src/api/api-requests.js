@@ -16,10 +16,9 @@ export const storeFormData = async (uri, formData) => {
   });
 };
 export const patchFormData = async (uri, formData) => {
-  return await axios.patch(`${process.env.VUE_APP_BASE_URL}${uri}`, formData, {
+  return await axios.post(`http://127.0.0.1:8000${uri}`, formData, {
     headers: {
       "Content-Type": "multipart/form-data",
-      Authorization: `Bearer ${localStorage.getItem("refreshToken")}`,
     },
   });
 };

@@ -56,6 +56,12 @@ export const category = {
   name: "",
 };
 
+export const categoryTableHeader = {
+  id: "#",
+  name: "Categoria",
+  action: "Acções",
+};
+
 export const tags = [
   { id: 1, name: "geologia" },
   { id: 2, name: "mineração" },

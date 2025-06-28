@@ -39,7 +39,7 @@ export default {
 
 #app {
   font-family: "Montserrat", sans-serif;
-  background: linear-gradient(135deg, #f0f8f2 0%, #e3f0e7 100%);
+  background: linear-gradient(135deg, #c2c7c3 0%, #e3f0e7 100%);
   color: #333;
   line-height: 1.6;
   padding: 20px;

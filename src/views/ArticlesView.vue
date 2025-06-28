@@ -80,6 +80,7 @@ import {
   CREATE_ARTICLE,
   FETCH_ARTICLES,
   FETCH_CATEGORIES,
+  UPDATE_ARTICLE,
 } from "@/store/constants";
 import { mapActions, mapState } from "vuex";
 
@@ -107,11 +108,16 @@ export default {
     },
   },
   methods: {
-    ...mapActions([CREATE_ARTICLE, FETCH_ARTICLES, FETCH_CATEGORIES]),
+    ...mapActions([
+      CREATE_ARTICLE,
+      FETCH_ARTICLES,
+      FETCH_CATEGORIES,
+      UPDATE_ARTICLE,
+    ]),
     async saveArticle() {
-      //const action = this.articleId ? "updateArticle" : "createArticle";
-      this.CREATE_ARTICLE(this.article);
-      await this.FETCH_ARTICLES();
+      this.article.id
+        ? this.UPDATE_ARTICLE(this.article)
+        : this.CREATE_ARTICLE(this.article);
     },
     loadArticle() {
       if (this.articleId) {
@@ -137,11 +143,5 @@ export default {
   background: white;
   border-radius: 20px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-}
-
-@media (min-width: 992px) {
-  .form-row {
-    grid-template-columns: 1fr 1fr;
-  }
 }
 </style>

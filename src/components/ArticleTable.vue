@@ -16,7 +16,7 @@
       <tbody>
         <tr v-for="article in articleList" :key="article.id">
           <td>{{ article.title }}</td>
-          <td>{{ article.author }}</td>
+          <td>{{ article.author.name }}</td>
           <td>{{ article.category.name }}</td>
           <td>{{ article.tags }}</td>
           <td>{{ article.publishedAt }}</td>

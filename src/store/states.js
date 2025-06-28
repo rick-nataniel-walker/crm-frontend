@@ -16,4 +16,7 @@ export const state = {
   },
   articles: [],
   categories: [],
+  category: {
+    name: "",
+  },
 };

@@ -1,43 +1,126 @@
 <template>
   <div class="bg-white grid">
-    <section-title title="Criar Nova Categoria" />
+    <section-title :title="formTitle" />
     <div class="grid md:grid-cols-4 gap-8">
       <form-group label="nome" v-model="category.name" class="md:col-span-2" />
       <action-btn
         icon="fas fa-save"
-        text="Guardar categoria"
+        text="Salvar a categoria"
         class="md:col-span-1 md:mt-8 h-12"
         @click="saveCategory"
       />
     </div>
+
+    <section-title title="Categorias" />
+    <main-table>
+      <template #headers>
+        <th>{{ categoryTableHeader.id }}</th>
+        <th>{{ categoryTableHeader.name }}</th>
+        <th>{{ categoryTableHeader.action }}</th>
+      </template>
+      <template #body>
+        <tr v-for="category in categories" :key="category.id">
+          <td>{{ category.id }}</td>
+          <td>{{ category.name }}</td>
+          <td>
+            <button class="action-btn" @click="editCategory(category.id)">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button class="action-btn" @click="deleteCategory(category.id)">
+              <i class="fas fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </template>
+    </main-table>
   </div>
 </template>
 
 <script>
-import SectionTitle from "@/components/shared/SectionTitle";
 import ActionBtn from "@/components/shared/ActionBtn";
 import FormGroup from "@/components/form/FormGroup";
-import { category } from "@/datasource";
-import { mapActions } from "vuex";
-import { CREATE_CATEGORY } from "@/store/constants";
+import MainTable from "@/components/tables/MainTable";
+import SectionTitle from "@/components/shared/SectionTitle";
+import { categoryTableHeader } from "@/datasource";
+import { mapActions, mapMutations, mapState } from "vuex";
+import {
+  CREATE_CATEGORY,
+  DELETE_CATEGORY,
+  FETCH_CATEGORIES,
+  FILL_CATEGORY,
+  UPDATE_CATEGORY,
+} from "@/store/constants";
 export default {
   name: "CategoryView",
   components: {
-    SectionTitle,
     ActionBtn,
     FormGroup,
+    MainTable,
+    SectionTitle,
   },
   data() {
-    return { category };
+    return { categoryTableHeader };
+  },
+  computed: {
+    ...mapState(["categories", "category"]),
+    formTitle() {
+      return this.category.id ? "Actualizar categoria" : "Criar Nova Categoria";
+    },
   },
   methods: {
-    ...mapActions([CREATE_CATEGORY]),
-    saveCategory() {
-      this.CREATE_CATEGORY(category);
-      category.name = "";
+    ...mapMutations([FILL_CATEGORY]),
+    ...mapActions([
+      CREATE_CATEGORY,
+      DELETE_CATEGORY,
+      FETCH_CATEGORIES,
+      UPDATE_CATEGORY,
+    ]),
+    async saveCategory() {
+      this.category.id
+        ? this.UPDATE_CATEGORY(this.category)
+        : this.CREATE_CATEGORY(this.category);
     },
+    editCategory(id) {
+      this.categories.forEach((category) => {
+        if (category.id === id) {
+          this.FILL_CATEGORY(category);
+
+          this.$nextTick(() => {
+            const formElement = document.getElementById("form");
+            if (formElement) {
+              formElement.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+              });
+            }
+          });
+        }
+      });
+    },
+    deleteCategory(id) {
+      if (confirm("Tem certeza que deseja apagar esta categoria?"))
+        this.DELETE_CATEGORY(id);
+    },
+  },
+  beforeMount() {
+    this.FETCH_CATEGORIES();
   },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+th {
+  @apply py-4 px-8 font-black text-primary text-left border-b border-gray-200;
+}
+
+td {
+  @apply py-4 px-8 border-b border-gray-100;
+}
+tbody tr {
+  @apply hover:bg-secondary-light;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+</style>
