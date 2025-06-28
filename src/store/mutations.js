@@ -17,7 +17,7 @@ export const mutations = {
     state.article.categoryId = article.category.id;
     state.article.authorId = article.author.id;
     state.article.postImg = "";
-    state.articles.tags = article.tags.map((tag) => tag.id);
+    state.article.tags = article.tags.map((tag) => tag.id);
   },
   [RESET_ARTICLE](state) {
     state.article = {
