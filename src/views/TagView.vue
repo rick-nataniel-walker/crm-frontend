@@ -5,13 +5,13 @@
       <form-group label="Nome" v-model="tag.name" class="md:col-span-2" />
       <action-btn
         icon="fas fa-save"
-        text="Salvar a Tag"
+        text="Salvar a Palavra-chave"
         class="md:col-span-1 md:mt-8 h-12"
         @click="saveTag"
       />
     </div>
 
-    <section-title title="Tags" />
+    <section-title title="Palavras-Chave" />
     <main-table>
       <template #headers>
         <th>{{ tagTableHeader.id }}</th>
@@ -77,7 +77,9 @@ export default {
   computed: {
     ...mapState(["tags", "tag"]),
     formTitle() {
-      return this.tag.id ? "Actualizar tag" : "Criar Nova Tag";
+      return this.tag.id
+        ? "Actualizar Palavra-Chave"
+        : "Criar Nova Palavra-Chave";
     },
     paginationSetup() {
       return paginate(this.tags, {

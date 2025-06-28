@@ -30,7 +30,7 @@ export default {
   props: {
     label: {
       type: String,
-      default: "Tags",
+      default: "Palavras-chave",
     },
     modelValue: {
       type: Array,
