@@ -31,6 +31,7 @@ import {
   UPDATE_TAG,
 } from "@/store/constants";
 import { createTag, deleteTag, fetchTags, updateTag } from "@/api/tags-api";
+import showAlert from "@/helpers/alert";
 
 export const actions = {
   async [CREATE_ARTICLE](context, formData) {
@@ -38,6 +39,18 @@ export const actions = {
     if (payload !== null) {
       await context.dispatch(FETCH_ARTICLES);
       context.commit(RESET_ARTICLE);
+      showAlert({
+        type: "success",
+        title: "Efectuado!",
+        message: "Artigo Criado com sucesso!",
+      });
+      context.commit(RESET_TAG);
+    } else {
+      showAlert({
+        type: "error",
+        title: "Erro!",
+        message: "Não foi possível efectuar a operação!",
+      });
     }
   },
   async [FETCH_ARTICLES](context) {
@@ -49,11 +62,37 @@ export const actions = {
     let result = await deleteArticle(id);
     if (result) {
       await context.dispatch(FETCH_ARTICLES);
+      showAlert({
+        type: "success",
+        title: "Efectuado!",
+        message: "Artigo Apaado com com sucesso!",
+      });
+      context.commit(RESET_TAG);
+    } else {
+      showAlert({
+        type: "error",
+        title: "Erro!",
+        message: "Não foi possível efectuar a operação!",
+      });
     }
   },
   async [UPDATE_ARTICLE](context, formData) {
     const result = await updateArticle(formData);
-    if (result) await context.dispatch(FETCH_ARTICLES);
+    if (result) {
+      await context.dispatch(FETCH_ARTICLES);
+      showAlert({
+        type: "success",
+        title: "Efectuado!",
+        message: "Artigo Actualizado com sucesso!",
+      });
+      context.commit(RESET_TAG);
+    } else {
+      showAlert({
+        type: "error",
+        title: "Erro!",
+        message: "Não foi possível efectuar a operação!",
+      });
+    }
   },
 
   async [CREATE_CATEGORY](context, formData) {
@@ -61,16 +100,56 @@ export const actions = {
     if (payload !== null) {
       await context.dispatch(FETCH_CATEGORIES);
       context.commit(RESET_CATEGORY);
+      showAlert({
+        type: "success",
+        title: "Efectuado!",
+        message: "Categoria adicionada com sucesso!",
+      });
+      context.commit(RESET_TAG);
+    } else {
+      showAlert({
+        type: "error",
+        title: "Erro!",
+        message: "Não foi possível efectuar a operação!",
+      });
     }
   },
   async [UPDATE_CATEGORY](context, formData) {
-    await updateCategory(formData);
-    await context.dispatch(FETCH_CATEGORIES);
-    context.commit(RESET_CATEGORY);
+    let payload = await updateCategory(formData);
+    if (payload !== null) {
+      await context.dispatch(FETCH_CATEGORIES);
+      context.commit(RESET_CATEGORY);
+      showAlert({
+        type: "success",
+        title: "Efectuado!",
+        message: "Categoria Actualizada com sucesso!",
+      });
+      context.commit(RESET_TAG);
+    } else {
+      showAlert({
+        type: "error",
+        title: "Erro!",
+        message: "Não foi possível efectuar a operação!",
+      });
+    }
   },
   async [DELETE_CATEGORY](context, id) {
-    await deleteCategory(id);
-    await context.dispatch(FETCH_CATEGORIES);
+    let payload = await deleteCategory(id);
+    if (payload !== null) {
+      await context.dispatch(FETCH_CATEGORIES);
+      showAlert({
+        type: "success",
+        title: "Efectuado!",
+        message: "Categoria Apagada com sucesso!",
+      });
+      context.commit(RESET_TAG);
+    } else {
+      showAlert({
+        type: "error",
+        title: "Erro!",
+        message: "Não foi possível efectuar a operação!",
+      });
+    }
   },
   async [FETCH_CATEGORIES](context) {
     let result = await fetchCategories();
@@ -82,16 +161,55 @@ export const actions = {
     if (payload !== null) {
       await context.dispatch(FETCH_TAGS);
       context.commit(RESET_TAG);
+      showAlert({
+        type: "success",
+        title: "Efectuado!",
+        message: "Palavra-chava Criada com sucesso!",
+      });
+      context.commit(RESET_TAG);
+    } else {
+      showAlert({
+        type: "error",
+        title: "Erro!",
+        message: "Não foi possível efectuar a operação!",
+      });
     }
   },
   async [UPDATE_TAG](context, formData) {
-    await updateTag(formData);
-    await context.dispatch(FETCH_TAGS);
-    context.commit(RESET_TAG);
+    let payload = await updateTag(formData);
+    if (payload !== null) {
+      await context.dispatch(FETCH_TAGS);
+      showAlert({
+        type: "success",
+        title: "Efectuado!",
+        message: "Palavra-chava Actualizada com sucesso!",
+      });
+      context.commit(RESET_TAG);
+    } else {
+      showAlert({
+        type: "error",
+        title: "Erro!",
+        message: "Não foi possível efectuar a operação!",
+      });
+    }
   },
   async [DELETE_TAG](context, id) {
-    await deleteTag(id);
-    await context.dispatch(FETCH_TAGS);
+    let payload = await deleteTag(id);
+    if (payload !== null) {
+      await context.dispatch(FETCH_TAGS);
+      showAlert({
+        type: "success",
+        title: "Efectuado!",
+        message: "Palavra-chava apagada com sucesso!",
+      });
+      context.commit(RESET_TAG);
+    } else {
+      showAlert({
+        type: "error",
+        title: "Erro!",
+        message: "Não foi possível efectuar a operação!",
+      });
+    }
   },
   async [FETCH_TAGS](context) {
     let payload = await fetchTags();

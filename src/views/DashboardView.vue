@@ -4,7 +4,7 @@
 
     <div class="stats-grid">
       <stats-card
-        v-for="stat in stats"
+        v-for="stat in STATS"
         :key="stat.id"
         :icon="stat.icon"
         :number="stat.number"
@@ -22,9 +22,8 @@
 import StatsCard from "@/components/shared/StatsCard";
 import ArticleTable from "@/components/ArticleTable";
 import SectionTitle from "@/components/shared/SectionTitle";
-import { stats } from "@/datasource";
-import { mapActions, mapState } from "vuex";
-import { FETCH_ARTICLES } from "@/store/constants";
+import { mapActions, mapGetters, mapState } from "vuex";
+import { FETCH_ARTICLES, FETCH_TAGS, STATS } from "@/store/constants";
 
 export default {
   name: "DashboardView",
@@ -33,19 +32,16 @@ export default {
     ArticleTable,
     SectionTitle,
   },
-  data() {
-    return {
-      stats,
-    };
-  },
   computed: {
     ...mapState(["articles"]),
+    ...mapGetters([STATS]),
   },
   methods: {
-    ...mapActions([FETCH_ARTICLES]),
+    ...mapActions([FETCH_ARTICLES, FETCH_TAGS]),
   },
   beforeMount() {
     this.FETCH_ARTICLES();
+    this.FETCH_TAGS();
   },
 };
 </script>

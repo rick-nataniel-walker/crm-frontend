@@ -116,8 +116,8 @@ export default {
     ]),
     async saveArticle() {
       this.article.id
-        ? this.UPDATE_ARTICLE(this.article)
-        : this.CREATE_ARTICLE(this.article);
+        ? await this.UPDATE_ARTICLE(this.article)
+        : await this.CREATE_ARTICLE(this.article);
     },
     loadArticle() {
       if (this.articleId) {
