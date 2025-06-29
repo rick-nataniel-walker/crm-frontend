@@ -26,6 +26,8 @@ import {
   RESET_ARTICLE,
   RESET_CATEGORY,
   RESET_TAG,
+  SET_LOADING,
+  UNSET_LOADING,
   UPDATE_ARTICLE,
   UPDATE_CATEGORY,
   UPDATE_TAG,
@@ -54,9 +56,11 @@ export const actions = {
     }
   },
   async [FETCH_ARTICLES](context) {
+    context.commit(SET_LOADING);
     let result = await fetchArticles();
     let payload = result.data.data;
     context.commit(FILL_ARTICLES, payload);
+    context.commit(UNSET_LOADING);
   },
   async [DELETE_ARTICLE](context, id) {
     let result = await deleteArticle(id);
@@ -152,8 +156,10 @@ export const actions = {
     }
   },
   async [FETCH_CATEGORIES](context) {
+    context.commit(SET_LOADING);
     let result = await fetchCategories();
     if (result !== null) context.commit(FILL_CATEGORIES, result);
+    context.commit(UNSET_LOADING);
   },
 
   async [CREATE_TAG](context, formData) {
@@ -212,7 +218,9 @@ export const actions = {
     }
   },
   async [FETCH_TAGS](context) {
+    context.commit(SET_LOADING);
     let payload = await fetchTags();
     if (payload !== null) context.commit(FILL_TAGS, payload);
+    context.commit(UNSET_LOADING);
   },
 };

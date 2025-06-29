@@ -6,17 +6,24 @@
       <router-view class="col-span-10 p-12" />
     </div>
   </div>
+  <main-spinner :active="isLoading" />
 </template>
 
 <script>
 import MainHeader from "@/components/MainHeader";
 import NavSidebar from "@/components/NavSidebar.vue";
+import MainSpinner from "@/components/shared/MainSpinner";
+import { mapState } from "vuex";
 
 export default {
   name: "App",
   components: {
     MainHeader,
     NavSidebar,
+    MainSpinner,
+  },
+  computed: {
+    ...mapState(["isLoading"]),
   },
 };
 </script>

@@ -23,4 +23,5 @@ export const state = {
   tag: {
     name: "",
   },
+  isLoading: false,
 };

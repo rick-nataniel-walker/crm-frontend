@@ -9,6 +9,8 @@ import {
   RESET_ARTICLE,
   RESET_CATEGORY,
   RESET_TAG,
+  SET_LOADING,
+  UNSET_LOADING,
 } from "@/store/constants";
 
 export const mutations = {
@@ -69,5 +71,12 @@ export const mutations = {
   },
   [RESET_TAG](state) {
     state.tag = {};
+  },
+
+  [SET_LOADING](state) {
+    state.isLoading = true;
+  },
+  [UNSET_LOADING](state) {
+    state.isLoading = false;
   },
 };

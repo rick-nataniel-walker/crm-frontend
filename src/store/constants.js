@@ -23,3 +23,5 @@ export const UPDATE_TAG = "UPDATE_TAG";
 export const DELETE_TAG = "DELETE_TAG";
 
 export const STATS = "STATS";
+export const SET_LOADING = "SET_LOADING";
+export const UNSET_LOADING = "UNSET_LOADING";
