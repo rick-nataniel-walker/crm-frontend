@@ -31,6 +31,7 @@
         inputType="textarea"
         placeholder="Digite o conteúdo completo aqui..."
       />
+      <quill-editor theme="snow" toolbar="full" />
 
       <div class="grid md:grid-cols-2 gap-8">
         <form-group
@@ -49,9 +50,9 @@
 
         <form-group
           label="Imagem de Destaque"
-          v-model="article.postImg"
-          inputType="input"
           type="file"
+          :value="article.img"
+          @handleInput="getImgVal"
         />
       </div>
       <div class="grid md:grid-cols-2 gap-8">
@@ -75,6 +76,8 @@ import ArticleTable from "@/components/ArticleTable";
 import FormGroup from "@/components/form/FormGroup";
 import SectionTitle from "@/components/shared/SectionTitle";
 import TagSelector from "@/components/form/TagSelector";
+import { QuillEditor } from "@vueup/vue-quill";
+import "@vueup/vue-quill/dist/vue-quill.snow.css";
 import {
   CREATE_ARTICLE,
   FETCH_ARTICLES,
@@ -92,6 +95,7 @@ export default {
     FormGroup,
     SectionTitle,
     TagSelector,
+    QuillEditor,
   },
   data() {
     return {
@@ -118,6 +122,10 @@ export default {
       this.article.id
         ? await this.UPDATE_ARTICLE(this.article)
         : await this.CREATE_ARTICLE(this.article);
+    },
+    getImgVal(img) {
+      this.article.postImg = img;
+      console.log(img);
     },
     loadArticle() {
       if (this.articleId) {

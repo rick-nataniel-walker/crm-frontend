@@ -37,7 +37,7 @@ export default {
   emits: ["update:modelValue"],
   methods: {
     handleInput(event) {
-      if (this.inputType === "file") {
+      if (this.inputType === "file" || this.type === "file") {
         this.$emit("update:modelValue", event.target.files[0]);
       } else {
         this.$emit("update:modelValue", event.target.value);
