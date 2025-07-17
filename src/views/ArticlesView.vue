@@ -25,13 +25,7 @@
         placeholder="Breve resumo do artigo..."
       />
 
-      <form-group
-        label="Conteúdo"
-        v-model="article.content"
-        inputType="textarea"
-        placeholder="Digite o conteúdo completo aqui..."
-      />
-      <quill-editor theme="snow" toolbar="full" />
+      <text-editor label="Conteúdo" @contentChanged="fillContent" />
 
       <div class="grid md:grid-cols-2 gap-8">
         <form-group
@@ -76,8 +70,7 @@ import ArticleTable from "@/components/ArticleTable";
 import FormGroup from "@/components/form/FormGroup";
 import SectionTitle from "@/components/shared/SectionTitle";
 import TagSelector from "@/components/form/TagSelector";
-import { QuillEditor } from "@vueup/vue-quill";
-import "@vueup/vue-quill/dist/vue-quill.snow.css";
+import TextEditor from "@/components/form/TextEditor";
 import {
   CREATE_ARTICLE,
   FETCH_ARTICLES,
@@ -95,7 +88,7 @@ export default {
     FormGroup,
     SectionTitle,
     TagSelector,
-    QuillEditor,
+    TextEditor,
   },
   data() {
     return {
@@ -126,6 +119,9 @@ export default {
     getImgVal(img) {
       this.article.postImg = img;
       console.log(img);
+    },
+    fillContent(data) {
+      this.article.content = data;
     },
     loadArticle() {
       if (this.articleId) {

@@ -51,42 +51,31 @@ export default {
   },
 };
 </script>
-
 <style scoped>
 .form-group {
-  margin-bottom: 25px;
+  @apply mb-6; /* margin-bottom: 25px → approx. 6 */
 }
 
 .form-group.form-row {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
-}
+  @apply grid gap-5 grid-cols-1;
 
+  /* Media query for lg+ screens */
+}
 @media (min-width: 992px) {
   .form-group.form-row {
-    grid-template-columns: 1fr 1fr;
+    @apply grid-cols-2;
   }
 }
 
 .form-label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 600;
-  color: var(--primary);
+  @apply block mb-2 font-semibold text-primary;
 }
 
 .form-control {
-  width: 100%;
-  padding: 12px 15px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  font-family: inherit;
-  font-size: 1rem;
+  @apply w-full px-8 py-3 border border-[rgba(0,0,0,0.1)] rounded-lg text-base focus:outline-none focus:border-secondary active:border-secondary;
 }
 
 textarea.form-control {
-  min-height: 150px;
-  resize: vertical;
+  @apply min-h-32 resize-y;
 }
 </style>
