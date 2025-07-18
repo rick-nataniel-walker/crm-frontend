@@ -41,12 +41,10 @@
             {{ category.name }}
           </option>
         </form-group>
-
-        <form-group
+        <file-input
+          name="postImg"
           label="Imagem de Destaque"
-          type="file"
-          :value="article.img"
-          @handleInput="getImgVal"
+          @base64Img="getImage"
         />
       </div>
       <div class="grid md:grid-cols-2 gap-8">
@@ -67,6 +65,7 @@
 <script>
 import ActionBtn from "@/components/shared/ActionBtn";
 import ArticleTable from "@/components/ArticleTable";
+import FileInput from "@/components/form/FileInput";
 import FormGroup from "@/components/form/FormGroup";
 import SectionTitle from "@/components/shared/SectionTitle";
 import TagSelector from "@/components/form/TagSelector";
@@ -85,6 +84,7 @@ export default {
   components: {
     ActionBtn,
     ArticleTable,
+    FileInput,
     FormGroup,
     SectionTitle,
     TagSelector,
@@ -116,12 +116,11 @@ export default {
         ? await this.UPDATE_ARTICLE(this.article)
         : await this.CREATE_ARTICLE(this.article);
     },
-    getImgVal(img) {
-      this.article.postImg = img;
-      console.log(img);
-    },
     fillContent(data) {
       this.article.content = data;
+    },
+    getImage(data) {
+      this.article.postImg = data;
     },
     loadArticle() {
       if (this.articleId) {
