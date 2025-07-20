@@ -82,6 +82,11 @@ export default {
       required: false,
       default: "",
     },
+    returnAsBase64: {
+      type: Boolean,
+      required: false,
+      default: true,
+    },
   },
   data() {
     return {
@@ -95,7 +100,7 @@ export default {
   },
   methods: {
     upload() {
-      uploadFile(this.name, this.id).then((r) => {
+      uploadFile(this.name, this.id, this.returnAsBase64).then((r) => {
         this.base64 = r;
         this.$emit("base64Img", this.base64);
       });

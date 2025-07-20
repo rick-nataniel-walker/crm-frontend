@@ -1,4 +1,9 @@
-export const uploadFile = (fileUploadInput, fileNamer, preview = null) => {
+export const uploadFile = (
+  fileUploadInput,
+  fileNamer,
+  returnAsBase64 = true,
+  preview = null
+) => {
   return new Promise((resolve, reject) => {
     const fileInput = document.getElementById(fileUploadInput);
     const fileNameInput = document.getElementById(fileNamer);
@@ -21,7 +26,8 @@ export const uploadFile = (fileUploadInput, fileNamer, preview = null) => {
           if (previewImage) {
             previewImage.src = e.target.result;
           }
-          resolve(e.target.result.split(",")[1]);
+          if (returnAsBase64) resolve(e.target.result.split(",")[1]);
+          else resolve(fileInput.files[0]);
         };
 
         // If an error occurs during reading

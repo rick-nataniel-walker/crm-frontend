@@ -45,6 +45,8 @@
           name="postImg"
           label="Imagem de Destaque"
           @base64Img="getImage"
+          formats="image/*"
+          :return-as-base64="false"
         />
       </div>
       <div class="grid md:grid-cols-2 gap-8">
